@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useCookies} from "react-cookie"
 import {useNavigate} from "react-router-dom";
+import './RegisterPage.css'
 
 export default function RegisterPage() {
 
@@ -18,7 +19,7 @@ export default function RegisterPage() {
         setLogin(event.target.value)
     }
 
-    const register = (event : any) => {
+    const registerSubmit = (event : any) => {
         fetch('https://localhost:44337/register', {
             mode: 'cors',
             method: 'post',
@@ -39,6 +40,7 @@ export default function RegisterPage() {
                 time.setTime(time.getTime() + 30 * 60 * 1000)
                 setCookies('accessToken', result["data"]["accessToken"], {expires: time})
                 setCookies('refreshToken', result["data"]['refreshToken'])
+                setCookies("userId", result["data"]["userId"])
                 navigate(`/${result["data"]["userId"]}`)
             })
         event.preventDefault()
@@ -46,7 +48,14 @@ export default function RegisterPage() {
 
     return (
         <div>
-            Регистрация
+            <div className="form">
+                <div className="header">Регистрация</div>
+                <div className="inputs">
+                    <input className="input" onChange={loginChanged} value={login} placeholder="Логин"/>
+                    <input className="input" onChange={passwordChanged} value={password} placeholder="Пароль" />
+                </div>
+                <button className="submitBtn" onClick={registerSubmit}>Зарегистрироваться</button>
+            </div>
         </div>
     )
 }
