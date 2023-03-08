@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useCookies} from "react-cookie"
 import {useNavigate} from "react-router-dom";
+import './Form.css'
 
 export default function LoginPage() {
 
@@ -9,7 +10,7 @@ export default function LoginPage() {
     const [error, setError] : any = useState("");
     const [cookies, setCookies] : any = useCookies();
     const navigate : any = useNavigate();
-
+    let id = useRef();
     const passwordChanged = (event : any) => {
         setPassword(event.target.value)
     }
@@ -18,16 +19,28 @@ export default function LoginPage() {
         setLogin(event.target.value)
     }
 
+    const toRegister = () => {
+        navigate("/Registration")
+    }
+
     useEffect(() => {
         if (cookies["accessToken"] && cookies["accessToken"] !== "undefined") {
-            navigate('/')
+            console.log(cookies["userId"])
+            console.log(cookies["accessToken"])
+            console.log(cookies["login"])
+            navigate(`/User/${cookies["login"]}`)
             return;
         }
+
         let refreshToken : any = cookies["refreshToken"]
+        console.log(refreshToken)
         if(refreshToken) {
             fetch('https://localhost:44337/login', {
                 mode: "cors",
                 method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({
                     "login": "",
                     "password": "",
@@ -45,13 +58,14 @@ export default function LoginPage() {
                     console.log(result)
                     setCookies('accessToken', result["data"]["accessToken"], {expires: time})
                     setCookies('refreshToken', result["data"]["refreshToken"])
-                    navigate('/')
+                    id.current = result["data"]["userId"]
+                    navigate(`/User/${cookies["login"]}`)
                 })
             return;
         }
     }, [])
 
-    const Login = (event : any) => {
+    const loginSubmit = (event : any) => {
         //console.log(res)
         fetch('https://localhost:44337/login', {
             mode: 'cors',
@@ -71,17 +85,28 @@ export default function LoginPage() {
                     return;
                 }
                 let time = new Date()
-                time.setTime(time.getTime() + 30 * 60 * 1000)
-                setCookies('accessToken', result["data"]["accessToken"], {expires: time})
-                setCookies('refreshToken', result["data"]['refreshToken'])
-                navigate(`/${result["data"]["userId"]}`)
+                time.setTime(time.getTime() + 1 * 60 * 1000)
+                setCookies("accessToken", result["data"]["accessToken"], {expires: time})
+                setCookies("refreshToken", result["data"]["refreshToken"])
+                setCookies("userId", result["data"]["userId"])
+                setCookies("login", login)
+                navigate(`/User/${login}`)
             })
         event.preventDefault()
     }
 
     return (
         <div>
-            Авторизация
+            <div className="form">
+                <div className="header">Вход</div>
+                <div className="inputs">
+                    <input className="input" onChange={loginChanged} value={login} placeholder="Логин"/>
+                    <input type="password" className="input" onChange={passwordChanged} value={password} placeholder="Пароль" />
+                </div>
+                <button className="submitBtn" onClick={loginSubmit}>Войти</button>
+            </div>
+            <button className="signInBtn" onClick={toRegister}>Зарегистрироваться</button>
         </div>
     )
 }
+
