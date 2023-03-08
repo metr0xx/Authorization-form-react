@@ -1,0 +1,114 @@
+* {
+    font-family: 'Raleway', sans-serif;
+}
+
+body {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    background: #4d4848;
+    width: 100vw;
+    height: 100vh;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    border: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60rem;
+    height: 45rem;
+    background: #706d6d;
+    border-radius: 60px;
+    /*box-shadow: 5px 5px 5px 4px rgba(0, 0, 0, 0.09);*/
+}
+
+.header {
+    font-size: 30pt;
+    margin: auto;
+    color: white;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
+.input {
+    width: 500px;
+    height: 50px;
+    margin-top: 15px;
+    border-radius: 30px;
+    border: none;
+    padding-left: 15px;
+    background: rgba(154, 145, 145, 0.66);
+    caret-color: white;
+    font-size: 12pt;
+    transition-timing-function: ease-in-out;
+    transition: 1s;
+    color: white;
+
+}
+
+.input:hover {
+    scale: 105%;
+    transition-timing-function: ease-in-out;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.15);
+    transition: 1s;
+}
+
+::placeholder {
+    color: white;
+    padding-left: 3px;
+}
+
+.submitBtn {
+    height: 90px;
+    width: 350px;
+    margin: auto;
+    border-radius: 30px;
+    border: 2px solid #ffffff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: white;
+    font-size: 24pt;
+    transition: 1s;
+    cursor: pointer;
+}
+
+.submitBtn:hover {
+    border: 2px solid #000000;
+    color: white;
+    transition: 1s;
+    font-size: 23pt;
+}
+
+.signInBtn {
+    position: absolute;
+    right: 5%;
+    margin-top: 30px;
+    width: 22rem;
+    height: 4rem;
+    border-radius: 30px;
+    border: 2px solid #ffffff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: white;
+    font-size: 24pt;
+    transition: 1s;
+    cursor: pointer;
+}
+
+.signInBtn:hover {
+    border: 2px solid #000000;
+    color: white;
+    transition: 1s;
+    font-size: 23pt;
+    scale: 110%;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.17);
+}
