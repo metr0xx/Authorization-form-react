@@ -1,0 +1,33 @@
+* {
+    font-family: 'Raleway', sans-serif;
+}
+
+.home-page {
+    background: #4d4848;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+}
+
+.routeBtn {
+    width: 50rem;
+    height: 40rem;
+    margin: auto;
+    border-radius: 30px;
+    border: 2px solid #ffffff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: white;
+    font-size: 24pt;
+    transition: 1s;
+    cursor: pointer;
+}
+
+.routeBtn:hover {
+    scale: 110%;
+    border: 2px solid #000000;
+    color: white;
+    transition: 1s;
+    font-size: 23pt;
+}
